@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * Hello world!
  *
+ *
  */
 public class App 
 {
