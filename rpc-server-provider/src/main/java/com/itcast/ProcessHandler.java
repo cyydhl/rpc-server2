@@ -1,5 +1,7 @@
 package com.itcast;
 
+import org.springframework.util.StringUtils;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -65,13 +67,20 @@ public class ProcessHandler implements Runnable {
 
     private Object invoke(RpcRequest request) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
-        String serviceName = request.getClassName();
+        //反射调用
+        String serviceName=request.getClassName();
+        String version=request.getVersion();
+        //增加版本号的判断
+        if(!StringUtils.isEmpty(version)){
+            serviceName+="-"+version;
+        }
+
 
         Object service = handelerMap.get(serviceName);
         if(service==null){
             throw new RuntimeException("service not found:"+serviceName);
         }
-        Object[] args=request.getParams(); //拿到客户端请求的参数
+        Object[] args=request.getParameters(); //拿到客户端请求的参数
         Method method=null;
         if(args!=null) {
             Class<?>[] types = new Class[args.length]; //获得每个参数的类型

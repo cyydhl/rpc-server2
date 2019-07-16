@@ -12,7 +12,9 @@ import org.springframework.context.annotation.Configuration;
 public class SpringConfig {
 
     @Bean(name="gpRpcProxyServer")
-    public GpRpcProxyServer gpRpcProxyServer(){
-        return new GpRpcProxyServer(8080);
+    public GpRpcServer gpRpcProxyServer(){
+//        return new GpRpcProxyServer(8080);
+
+        return new GpRpcServer(8080);
     }
 }
